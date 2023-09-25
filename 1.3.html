@@ -15,7 +15,7 @@
         #app {
             max-width: 960px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
 
         header {
@@ -62,7 +62,7 @@
 
         section {
             background-color: #fff;
-            padding: 40px 0;
+            padding: 40px 20px;
             text-align: center;
         }
 
@@ -77,7 +77,6 @@
         h2 {
             font-size: 28px;
             margin: 10px 0;
-            cursor: pointer;
         }
 
         ul {
@@ -174,15 +173,22 @@
                     <h2>Skills</h2>
                     <div>
                         <ul>
-                            <li>Front-End Development</li>
-                            <li>Responsive Web Design</li>
-                            <li>User Interface (UI) Design</li>
-                            <li>Web Development Frameworks</li>
-                            <li>Problem-Solving</li>
+                            <li v-for="skill in skills">{{ skill }}</li>
                         </ul>
                     </div>
                 </section>
-            `
+            `,
+            data() {
+                return {
+                    skills: [
+                        "Front-End Development",
+                        "Responsive Web Design",
+                        "User Interface (UI) Design",
+                        "Web Development Frameworks",
+                        "Problem-Solving"
+                    ]
+                };
+            }
         });
 
         Vue.component('contact', {
@@ -191,6 +197,14 @@
                     <h2>Contact Me</h2>
                     <div>
                         <p>I am open for freelance and collaborative work. Please do not hesitate to contact me!</p>
+                        <input type="text" v-model="userInput" placeholder="Your Message">
+                        
+                        <p v-if="userInput !== ''">You typed: {{ userInput }}</p>
+                        <p v-else>No message entered.</p>
+                        
+                        <button v-if="userInput !== ''" @click="submitMessage">Submit</button>
+                        <p v-if="messageSent">Message sent successfully!</p>
+                        
                         <ul>
                             <li>Email: <a href="mailto:albinpbabz@gmail.com">albinpbabz@gmail.com</a></li>
                             <li>Phone Number: <a href="tel:+61481447933">+61 481447933</a></li>
@@ -198,7 +212,20 @@
                         </ul>
                     </div>
                 </section>
-            `
+            `,
+            data() {
+                return {
+                    userInput: '',
+                    messageSent: false
+                };
+            },
+            methods: {
+                submitMessage() {
+                    setTimeout(() => {
+                        this.messageSent = true;
+                    }, 1000);
+                }
+            }
         });
 
         const routes = [
@@ -219,6 +246,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 
